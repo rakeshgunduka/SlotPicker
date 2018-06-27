@@ -376,16 +376,26 @@ const plugin = (function() {
             var _this = this;
             var tempPosArr = posIndexArr;
             var tempCount;
+            const slotID = _this.mobileSelect.querySelector('#slot-id');
             if(_this.slider.length > posIndexArr.length){
+                slotID.classList.remove('empty');
+                slotID.innerHTML = '';
                 tempCount = _this.slider.length - posIndexArr.length;
                 for(var i=0; i<tempCount; i++){
                     tempPosArr.push(0);
                 }
             }else if(_this.slider.length < posIndexArr.length){
+                if (index == 0) {
+                    slotID.classList.add('empty');
+                    slotID.innerHTML = 'No slots available on this day';
+                }
                 tempCount = posIndexArr.length - _this.slider.length;
                 for(var i=0; i<tempCount; i++){
                     tempPosArr.pop();
                 }
+            }else if (index == 0 && _this.wheelsData[0].data[posIndexArr[index]].childs.length == 0) {
+                slotID.classList.add('empty');
+                slotID.innerHTML = 'No slots available on this day';
             }
             for(var i=index+1; i< tempPosArr.length; i++){
                 tempPosArr[i] = 0;
@@ -455,7 +465,6 @@ const plugin = (function() {
             var _this = this;
             var tempHTML='';
             if(_this.cascade){
-                console.error('级联格式不支持updateWheel(),请使用updateWheels()更新整个数据源');
                 return false;
             }
             else if(_this.jsonType){

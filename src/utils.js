@@ -6,6 +6,7 @@ function getMinChilds(hour_slots) {
       id: min.slice(3),
       title: min.slice(3),
       value: min.slice(3),
+      type: 'min',
       children: [
         slotId
       ]
@@ -20,6 +21,7 @@ function getHourChilds(date_slots) {
         id: time.hour,
         title: time.hour,
         value: time.hour,
+        type: 'hour',
         childs:[
             '00',
         ]
@@ -29,6 +31,7 @@ function getHourChilds(date_slots) {
         id: time.hour,
         title: time.hour,
         value: time.hour,
+        type: 'hour',
         childs: getMinChilds(time.hour_slots)
       }
     }
@@ -42,6 +45,7 @@ export function processData(propsData) {
         id: slot.date,
         title: slot.date,
         value: slot.date,
+        type: 'date',
         childs:[
             'No slots',
         ]
@@ -51,6 +55,7 @@ export function processData(propsData) {
         id: slot.date,
         title: slot.date,
         value: slot.date,
+        type: 'date',
         childs: getHourChilds(slot.date_slots)
       }
     }
